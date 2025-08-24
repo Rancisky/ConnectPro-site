@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ConnectPro – Join • Earn • Grow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --brand:#6C5CE7; }
+    body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.12); }
+    .gradient { background: radial-gradient(1200px 600px at 10% -10%, rgba(108,92,231,.35), transparent),
+                          radial-gradient(1200px 600px at 90% 0%, rgba(16,185,129,.25), transparent),
+                          linear-gradient(180deg, #0b1020 0%, #0d1226 100%); }
+  </style>
+  <!-- Paystack Inline (uncomment after you add your public key) -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body class="gradient text-white min-h-screen">
+  <!-- NAVBAR -->
+  <header class="max-w-6xl mx-auto flex items-center justify-between p-4 md:p-6">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-white/10 grid place-items-center text-emerald-300 font-bold">CP</div>
+      <span class="font-semibold tracking-wide">ConnectPro</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-4">
+      <a href="#how" class="text-white/80 hover:text-white">How it works</a>
+      <a href="#register" class="text-white/80 hover:text-white">Register</a>
+      <a href="#" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition">Login</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-4 md:px-6 pt-4 md:pt-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight">Join the Network. <span class="text-emerald-400">Earn</span>, Connect & Grow.</h1>
+        <p class="mt-4 text-white/80 max-w-xl">Pay once to activate your membership, get your unique <strong>username invite code</strong>, and watch your community and rewards grow — transparently.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="#register" class="px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold transition">Register Now</a>
+          <a href="#how" class="px-6 py-3 rounded-2xl bg-white/10 hover:bg-white/20 transition">How it works</a>
+        </div>
+        <div class="mt-6 text-xs text-white/60">Secure payments • Your data stays private • Cancel anytime</div>
+      </div>
+      <div class="md:justify-self-end">
+        <div class="glass rounded-3xl p-6 border border-white/10 shadow-2xl">
+          <div class="text-white/80 text-sm">Live Snapshot</div>
+          <div class="mt-2 grid grid-cols-3 gap-3">
+            <div class="bg-white/10 rounded-2xl p-4 text-center">
+              <div class="text-2xl font-bold" id="liveMembers">0</div>
+              <div class="text-xs text-white/70">Members</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-4 text-center">
+              <div class="text-2xl font-bold" id="liveRaised">₦0</div>
+              <div class="text-xs text-white/70">Raised</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-4 text-center">
+              <div class="text-2xl font-bold" id="livePayouts">₦0</div>
+              <div class="text-xs text-white/70">Payouts</div>
+            </div>
+          </div>
+          <div class="mt-4 text-xs text-white/60">* Demo values for MVP. Will update live when backend connects.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <div class="text-lg font-semibold">1) Register & Pay</div>
+        <p class="text-white/80 mt-2">Create an account, choose a <strong>unique username</strong>, and pay the membership fee to activate.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <div class="text-lg font-semibold">2) Get Invite Code</div>
+        <p class="text-white/80 mt-2">Your username <em>becomes</em> your invite code. Share your link and grow your network.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <div class="text-lg font-semibold">3) Earn & Withdraw</div>
+        <p class="text-white/80 mt-2">Track contributions, referral rewards, and withdraw your balance when you want.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="register" class="max-w-6xl mx-auto px-4 md:px-6 pb-20">
+    <div class="grid md:grid-cols-2 gap-8 items-start">
+      <div class="glass rounded-3xl p-6 md:p-8 border border-white/10 shadow-xl">
+        <h3 class="text-xl md:text-2xl font-bold">Create your account</h3>
+        <p class="text-white/70 text-sm mt-1">Your username will also be your invite code after activation.</p>
+
+        <form id="registerForm" class="mt-6 grid gap-4" autocomplete="on">
+          <div>
+            <label class="block text-sm text-white/70 mb-1">Full Name</label>
+            <input id="fullName" type="text" required placeholder="e.g. Adaeze Okafor" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+          </div>
+          <div>
+            <label class="block text-sm text-white/70 mb-1">Username (invite code)</label>
+            <input id="username" type="text" minlength="3" maxlength="20" pattern="[a-zA-Z0-9_]+" required placeholder="e.g. ada_okafor" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+            <div class="text-xs text-white/50 mt-1">Letters, numbers, underscores only.</div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-white/70 mb-1">Email</label>
+              <input id="email" type="email" required placeholder="you@mail.com" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+            </div>
+            <div>
+              <label class="block text-sm text-white/70 mb-1">Phone</label>
+              <input id="phone" type="tel" inputmode="tel" placeholder="0803 000 0000" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm text-white/70 mb-1">Password</label>
+              <input id="password" type="password" minlength="6" required placeholder="••••••••" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+            </div>
+            <div>
+              <label class="block text-sm text-white/70 mb-1">Referral Code (optional)</label>
+              <input id="referral" type="text" placeholder="enter referrer username" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm text-white/70 mb-1">Social Handle (Instagram/Twitter/TikTok)</label>
+            <input id="social" type="text" placeholder="@yourhandle" class="w-full rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-emerald-400" />
+          </div>
+          <label class="flex items-center gap-3 text-sm text-white/80">
+            <input id="agree" type="checkbox" class="w-5 h-5 rounded" />
+            I agree to the <a class="underline decoration-dotted hover:text-emerald-300" href="#">Terms</a> & <a class="underline decoration-dotted hover:text-emerald-300" href="#">Privacy</a>.
+          </label>
+
+          <button id="payBtn" class="mt-2 px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold transition">Continue to Payment</button>
+        </form>
+
+        <div id="successPanel" class="hidden mt-6 border border-emerald-500/30 bg-emerald-500/10 rounded-2xl p-4">
+          <div class="font-semibold text-emerald-300">Payment successful 🎉</div>
+          <p class="text-sm text-white/80 mt-1">Your account is now active. Share your invite link:</p>
+          <div class="mt-3 flex items-center gap-2">
+            <input id="inviteLink" class="flex-1 rounded-xl bg-white/10 border border-white/10 px-3 py-2" readonly />
+            <button onclick="copyInvite()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="space-y-4">
+        <div class="glass rounded-3xl p-6 border border-white/10">
+          <h4 class="font-semibold">Why members love ConnectPro</h4>
+          <ul class="mt-3 space-y-2 text-white/80 text-sm list-disc list-inside">
+            <li>Clean, transparent referral tracking</li>
+            <li>Instant activation after payment</li>
+            <li>Withdraw earnings anytime</li>
+            <li>Built for communities in Africa 🌍</li>
+          </ul>
+        </div>
+        <div class="glass rounded-3xl p-6 border border-white/10">
+          <h4 class="font-semibold">Need help?</h4>
+          <p class="text-white/80 text-sm mt-1">Chat with support on WhatsApp/Telegram after signup. We’re here for you.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-10 text-white/60 text-sm flex flex-col md:flex-row gap-3 md:gap-6 justify-between">
+      <div>© <span id="year"></span> ConnectPro. All rights reserved.</div>
+      <div class="space-x-4">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Demo counters (replace with live values when backend is ready)
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const fmtNGN = n => new Intl.NumberFormat('en-NG', { style:'currency', currency:'NGN', maximumFractionDigits:0 }).format(n);
+    let demoMembers = 124, demoRaised = 1250000, demoPayouts = 320000;
+    document.getElementById('liveMembers').textContent = demoMembers.toLocaleString();
+    document.getElementById('liveRaised').textContent = fmtNGN(demoRaised);
+    document.getElementById('livePayouts').textContent = fmtNGN(demoPayouts);
+
+    // ===== Prefill referral from URL: ?ref=username
+    (function prefillRefFromURL(){
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref') || params.get('code');
+      if(ref){ document.getElementById('referral').value = ref; }
+    })();
+
+    // ===== Payment & Registration (Paystack Inline)
+    const PAYSTACK_PUBLIC_KEY = 'pk_test_fd7f38067f3b4204ebb34445e8cf617be6a4be1a'; // <-- TODO
+    const MEMBERSHIP_FEE_NGN = 10000; // ₦10,000
+
+    document.getElementById('registerForm').addEventListener('submit', function(e){
+      e.preventDefault();
+    });
+
+    document.getElementById('payBtn').addEventListener('click', function(e){
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value; // stored only for demo; do NOT store client-side in prod
+      const referral = document.getElementById('referral').value.trim();
+      const social = document.getElementById('social').value.trim();
+      const agree = document.getElementById('agree').checked;
+
+      if(!fullName || !username || !email || !password){
+        alert('Please fill in all required fields.');
+        return;
+      }
+      if(!agree){
+        alert('You need to accept the Terms to continue.');
+        return;
+      }
+      if(PAYSTACK_PUBLIC_KEY.startsWith('REPLACE_')){
+        alert('Add your Paystack Public Key in the code before testing payments.');
+        return;
+      }
+
+      const amountKobo = MEMBERSHIP_FEE_NGN * 100;
+      const ref = `CP-${Date.now()}-${Math.floor(Math.random()*99999)}`;
+
+      const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: email,
+        amount: amountKobo,
+        currency: 'NGN',
+        ref: ref,
+        metadata: {
+          custom_fields: [
+            { display_name: 'Full Name', variable_name: 'full_name', value: fullName },
+            { display_name: 'Username', variable_name: 'username', value: username },
+            { display_name: 'Phone', variable_name: 'phone', value: phone },
+            { display_name: 'Referral', variable_name: 'referral', value: referral },
+            { display_name: 'Social', variable_name: 'social', value: social }
+          ]
+        },
+        callback: function(response){
+          // Payment successful (client-side). In production, VERIFY on your server/webhook before activating.
+          const origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : 'https://your-domain.com';
+          const invite = `${origin}/invite?ref=${encodeURIComponent(username)}`;
+
+          // Show success panel + invite link
+          document.getElementById('inviteLink').value = invite;
+          document.getElementById('successPanel').classList.remove('hidden');
+
+          // Save a basic local demo profile (replace with real backend later)
+          const profile = { fullName, username, email, phone, social, referral, active:true, txRef: response.reference };
+          localStorage.setItem('connectpro_profile', JSON.stringify(profile));
+          alert('Payment successful! Reference: ' + response.reference + '\n(For production, set up a webhook to verify before activating.)');
+        },
+        onClose: function(){
+          // User closed payment window
+        }
+      });
+      handler.openIframe();
+    });
+
+    function copyInvite(){
+      const el = document.getElementById('inviteLink');
+      el.select();
+      el.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      alert('Invite link copied!');
+    }
+  </script>
+</body>
+</html>
