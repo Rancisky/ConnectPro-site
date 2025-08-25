@@ -1,0 +1,27 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard</title></head><body style="font-family:Arial;padding:30px">
+<div id="wrap" style="max-width:900px;margin:auto"></div>
+
+<script src="assets/config.js"></script>
+<script src="assets/firebase.js" type="module"></script>
+<script type="module">
+  const { auth, db, doc, getDoc } = window.FB;
+  const wrap = document.getElementById('wrap');
+
+  auth.onAuthStateChanged(async (user) => {
+    if (!user) { window.location.href = '/login.html'; return; }
+    const udoc = await getDoc(doc(db, 'users', user.uid));
+    if (!udoc.exists() || !udoc.data().isPremium) {
+      alert('You must upgrade to Premium to access the dashboard.');
+      window.location.href = '/upgrade.html';
+      return;
+    }
+    const data = udoc.data();
+    wrap.innerHTML = `<h1>Welcome, ${data.name || data.username}</h1>
+      <p>Your account is Premium — you can now access members-only features.</p>
+      <p>TX Ref: ${data.txRef || 'N/A'}</p>`;
+  });
+</script>
+</body></html>

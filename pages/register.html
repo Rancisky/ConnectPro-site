@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register — Elevate Network</title>
+
+  <!-- ✅ CSP updated to allow Paystack checkout -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://js.paystack.co https://cdn.jsdelivr.net https://www.gstatic.com 'unsafe-inline';
+    style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+    img-src 'self' data: https://checkout.paystack.com;
+    connect-src 'self' https://api.paystack.co https://firestore.googleapis.com https://identitytoolkit.googleapis.com;
+    frame-src https://checkout.paystack.com;
+    font-src 'self' https://fonts.gstatic.com;
+  ">
+
+  <!-- Tailwind for quick clean UI -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- intl-tel-input CSS (phone with country flags) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.7.3/build/css/intlTelInput.css" />
+  <style>
+    .card { max-width: 720px; }
+    .iti { width: 100%; }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-indigo-600 to-purple-600 min-h-screen flex items-center justify-center p-6">
+
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full card">
+    <div class="flex items-center gap-4 mb-6">
+      <img src="elevate.png" alt="logo" class="w-12 h-12 rounded-lg object-cover" />
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">Elevate Network — Membership</h1>
+        <p class="text-sm text-gray-500">Create an account & unlock full access after payment</p>
+      </div>
+    </div>
+
+    <div id="banners" class="space-y-3 mb-4">
+      <div id="error" class="hidden bg-red-50 border border-red-200 text-red-700 p-3 rounded"></div>
+      <div id="success" class="hidden bg-green-50 border border-green-200 text-green-700 p-3 rounded"></div>
+    </div>
+
+    <form id="signupForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Full name -->
+      <div class="col-span-2">
+        <label class="text-sm font-medium text-gray-700">Full name</label>
+        <input id="fullName" name="fullName" type="text" required class="mt-1 block w-full border rounded-lg px-3 py-2" placeholder="e.g. Francis Igweze" />
+      </div>
+
+      <!-- Username -->
+      <div>
+        <label class="text-sm font-medium text-gray-700">Username</label>
+        <input id="username" name="username" type="text" required class="mt-1 block w-full border rounded-lg px-3 py-2" placeholder="public handle (3–20 chars)" />
+        <p class="text-xs text-gray-500 mt-1">Letters, numbers, underscore. Unique.</p>
+      </div>
+
+      <!-- Country selector -->
+      <div>
+        <label class="text-sm font-medium text-gray-700">Country</label>
+        <select id="country" name="country" required class="mt-1 block w-full border rounded-lg px-3 py-2">
+          <option value="">Select country</option>
+          <option value="NG">Nigeria</option>
+          <option value="US">United States</option>
+          <option value="GB">United Kingdom</option>
+          <option value="GH">Ghana</option>
+          <option value="KE">Kenya</option>
+          <option value="ZA">South Africa</option>
+          <option value="IN">India</option>
+          <option value="CA">Canada</option>
+          <option value="AU">Australia</option>
+          <option value="DE">Germany</option>
+        </select>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="text-sm font-medium text-gray-700">Email</label>
+        <input id="email" name="email" type="email" required class="mt-1 block w-full border rounded-lg px-3 py-2" placeholder="you@example.com" />
+      </div>
+
+      <!-- Phone -->
+      <div class="col-span-2">
+        <label class="text-sm font-medium text-gray-700">Phone (with country code)</label>
+        <input id="phone" name="phone" type="tel" required class="mt-1 block w-full border rounded-lg px-3 py-2" placeholder="Enter phone number" />
+        <p class="text-xs text-gray-500 mt-1">Click the flag to choose country code.</p>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="text-sm font-medium text-gray-700">Password</label>
+        <input id="password" name="password" type="password" required class="mt-1 block w-full border rounded-lg px-3 py-2" placeholder="Min 6 characters" />
+      </div>
+
+      <!-- Confirm password -->
+      <div>
+        <label class="text-sm font-medium text-gray-700">Confirm password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" required class="mt-1 block w-full border rounded-lg px-3 py-2" placeholder="Retype password" />
+      </div>
+
+      <!-- Amount -->
+      <div class="col-span-2">
+        <div class="bg-gray-50 p-4 rounded-lg flex items-center justify-between">
+          <div>
+            <div class="text-sm text-gray-600">Plan</div>
+            <div class="font-semibold">Membership Access</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-gray-600">Amount</div>
+            <div class="text-xl font-bold text-gray-800">₦<span id="amountDisplay">5,000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="col-span-2 flex gap-3">
+        <button id="btnPay" type="button" class="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700">
+          Pay & Register
+        </button>
+        <button id="btnReset" type="button" class="flex-1 bg-gray-100 text-gray-800 py-3 rounded-lg border">Reset</button>
+      </div>
+    </form>
+
+    <p class="text-center text-sm text-gray-500 mt-4">Already a member? <a href="login.html" class="text-indigo-600">Login</a></p>
+  </div>
+
+  <!-- Paystack inline SDK -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <!-- intl-tel-input -->
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.7.3/build/js/intlTelInput.min.js"></script>
+
+  <!-- Main logic -->
+  <script>
+    const PAYSTACK_PUBLIC_KEY = "pk_test_fd7f38067f3b4204ebb34445e8cf617be6a4be1a";
+    const AMOUNT_NGN = 5000;
+
+    // Utility functions
+    function showError(msg) {
+      const errorDiv = document.getElementById("error");
+      errorDiv.textContent = msg;
+      errorDiv.classList.remove("hidden");
+      setTimeout(() => errorDiv.classList.add("hidden"), 5000);
+    }
+    function showSuccess(msg) {
+      const successDiv = document.getElementById("success");
+      successDiv.textContent = msg;
+      successDiv.classList.remove("hidden");
+      setTimeout(() => successDiv.classList.add("hidden"), 5000);
+    }
+
+    function generateRef() {
+      return 'REG-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const payBtn = document.getElementById("btnPay");
+      const resetBtn = document.getElementById("btnReset");
+
+      payBtn.addEventListener("click", function () {
+        const fullName = document.getElementById("fullName").value.trim();
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const country = document.getElementById("country").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (!fullName || !username || !email || !phone || !country || !password) {
+          showError("Please fill all fields");
+          return;
+        }
+        if (password !== confirmPassword) {
+          showError("Passwords do not match");
+          return;
+        }
+
+        let handler = PaystackPop.setup({
+          key: PAYSTACK_PUBLIC_KEY,
+          email: email,
+          amount: AMOUNT_NGN * 100,
+          currency: "NGN",
+          ref: generateRef(),
+          callback: function (response) {
+            showSuccess("Payment successful! Ref: " + response.reference);
+            // 👉 here you can save to Firebase after successful payment
+          },
+          onClose: function () {
+            showError("Payment cancelled.");
+          }
+        });
+
+        handler.openIframe();
+      });
+
+      resetBtn.addEventListener("click", function () {
+        document.getElementById("signupForm").reset();
+        showSuccess("Form reset!");
+      });
+
+      // phone input init
+      const phoneInput = document.querySelector("#phone");
+      window.intlTelInput(phoneInput, { initialCountry: "ng" });
+    });
+  </script>
+</body>
+</html>

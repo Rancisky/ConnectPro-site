@@ -1,0 +1,73 @@
+<!-- upgrade.html -->
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Upgrade - Elevate Network</title>
+</head><body style="font-family:Arial;padding:30px;background:#f4f7f9">
+<div style="max-width:700px;margin:40px auto;background:#fff;padding:24px;border-radius:12px">
+  <h2>Upgrade to Premium</h2>
+  <p>One-time fee: ₦<span id="fee">0</span></p>
+  <button id="payBtn" style="padding:12px 18px;background:#4CAF50;color:#fff;border:none;border-radius:8px">Pay Now</button>
+  <div id="status" style="margin-top:12px"></div>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/firebase.js" type="module"></script>
+
+<script type="module">
+  const { auth, db, doc, getDoc, updateDoc } = window.FB;
+  const cfg = window.APP_CONFIG || {};
+  document.getElementById('fee').textContent = (cfg.MEMBERSHIP_FEE_NGN || 30000).toLocaleString();
+
+  // Check auth state, else redirect to login
+  auth.onAuthStateChanged(async (user) => {
+    if (!user) { window.location.href = '/login.html'; return; }
+    // fetch user doc to see if already premium
+    const udoc = await getDoc(doc(db, 'users', user.uid));
+    if (udoc.exists() && udoc.data().isPremium) {
+      document.getElementById('status').innerText = "You're already Premium. Access your dashboard.";
+      setTimeout(()=> window.location.href = '/dashboard.html', 1200);
+    }
+  });
+
+  document.getElementById('payBtn').addEventListener('click', () => {
+    const user = auth.currentUser;
+    if (!user) { window.location.href = '/login.html'; return; }
+    const amountKobo = (cfg.MEMBERSHIP_FEE_NGN || 30000) * 100;
+    const handler = PaystackPop.setup({
+      key: cfg.PAYSTACK_PUBLIC_KEY,
+      email: user.email || 'no-email@example.com',
+      amount: amountKobo,
+      currency: cfg.CURRENCY || 'NGN',
+      ref: `EV-${Date.now()}-${Math.floor(Math.random()*100000)}`,
+      metadata: { uid: user.uid },
+      callback: async function(response) {
+        document.getElementById('status').innerText = "Payment complete on client. Verifying...";
+        // POST to server verify function
+        try {
+          const res = await fetch(cfg.VERIFY_PAYMENT_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reference: response.reference, uid: user.uid })
+          });
+          const json = await res.json();
+          if (json.success) {
+            document.getElementById('status').innerText = "Payment verified. Redirecting to dashboard...";
+            setTimeout(()=> window.location.href = '/dashboard.html', 1200);
+          } else {
+            document.getElementById('status').innerText = "Verification failed: " + (json.message || 'Contact support');
+          }
+        } catch (err) {
+          console.error(err);
+          document.getElementById('status').innerText = "Server verification error. Contact support with reference: " + response.reference;
+        }
+      },
+      onClose: function() {
+        document.getElementById('status').innerText = "Payment closed.";
+      }
+    });
+    handler.openIframe();
+  });
+</script>
+</body></html>
