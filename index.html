@@ -1,222 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elevate Network</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ConnectPro – Join • Earn • Grow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* === GLOBAL STYLES === */
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #ffffff;
-      color: #222;
-      line-height: 1.6;
-    }
-    h1, h2, h3 {
-      margin: 0 0 10px;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .container {
-      width: 90%;
-      max-width: 1100px;
-      margin: auto;
-    }
-    /* === HEADER === */
-    header {
-      background: #ffffff;
-      border-bottom: 2px solid #e5f9ee;
-      padding: 20px 0;
-    }
-    header .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #27ae60;
-    }
-    nav {
-      float: right;
-    }
-    nav a {
-      margin-left: 20px;
-      color: #333;
-      font-weight: 500;
-    }
-    nav a:hover {
-      color: #27ae60;
-    }
-    /* === HERO === */
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-      background: linear-gradient(135deg, #ffffff 50%, #e5f9ee 50%);
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      color: #222;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      background: #27ae60;
-      color: #fff;
-      border-radius: 25px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #219150;
-    }
-    /* === SECTIONS === */
-    section {
-      padding: 70px 20px;
-      text-align: center;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .card {
-      padding: 30px;
-      border: 1px solid #e5f9ee;
-      border-radius: 12px;
-      background: #fdfdfd;
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: #27ae60;
-    }
-    /* === PRICING === */
-    .pricing {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .price-card {
-      flex: 1;
-      min-width: 250px;
-      padding: 30px;
-      border-radius: 12px;
-      border: 1px solid #e5f9ee;
-      background: #fff;
-    }
-    .price-card h3 {
-      color: #27ae60;
-    }
-    /* === TESTIMONIALS === */
-    .testimonials {
-      background: #e5f9ee;
-      border-radius: 12px;
-      padding: 40px 20px;
-    }
-    .testimonial {
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-    /* === FOOTER === */
-    footer {
-      background: #27ae60;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    footer a {
-      color: #fff;
-      margin: 0 10px;
-    }
+    :root { --brand:#6C5CE7; }
+    body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.12); }
+    .gradient { background: radial-gradient(1200px 600px at 10% -10%, rgba(108,92,231,.35), transparent),
+                          radial-gradient(1200px 600px at 90% 0%, rgba(16,185,129,.25), transparent),
+                          linear-gradient(180deg, #0b1020 0%, #0d1226 100%); }
   </style>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
-<body>
-
-  <!-- HEADER -->
-  <header>
-    <div class="container">
-      <span class="logo">Elevate Network</span>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>
+<body class="gradient text-white min-h-screen">
+  <!-- NAVBAR -->
+  <header class="max-w-6xl mx-auto flex items-center justify-between p-4 md:p-6">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-white/10 grid place-items-center text-emerald-300 font-bold">CP</div>
+      <span class="font-semibold tracking-wide">ConnectPro</span>
     </div>
+    <nav class="hidden md:flex items-center gap-4">
+      <a href="#how" class="text-white/80 hover:text-white">How it works</a>
+      <a href="#features" class="text-white/80 hover:text-white">Features</a>
+      <a href="#register" class="text-white/80 hover:text-white">Register</a>
+      <a href="#about" class="text-white/80 hover:text-white">About</a>
+      <a href="#testimonials" class="text-white/80 hover:text-white">Testimonials</a>
+      <a href="#" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition">Login</a>
+    </nav>
   </header>
 
   <!-- HERO -->
-  <section class="hero">
-    <h1>Welcome to Elevate Network</h1>
-    <p>Connecting minds. Elevating opportunities.</p>
-    <a href="#pricing" class="btn">Join Now</a>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="container">
-    <h2>About Us</h2>
-    <p>Elevate Network is a modern platform designed to bring people together, share knowledge, and unlock new opportunities. We empower individuals and communities through collaboration and technology.</p>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="container">
-    <h2>Our Features</h2>
-    <div class="features">
-      <div class="card">
-        <h3>💡 Knowledge Sharing</h3>
-        <p>Access resources and learn from industry experts in real time.</p>
+  <section class="max-w-6xl mx-auto px-4 md:px-6 pt-4 md:pt-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight">Join the Network. <span class="text-emerald-400">Earn</span>, Connect & Grow.</h1>
+        <p class="mt-4 text-white/80 max-w-xl">Pay once to activate your membership, get your unique <strong>username invite code</strong>, and watch your community and rewards grow — transparently.</p>
+        <div class="mt-6 flex gap-3">
+          <a href="#register" class="px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold transition">Register Now</a>
+          <a href="#how" class="px-6 py-3 rounded-2xl bg-white/10 hover:bg-white/20 transition">How it works</a>
+        </div>
       </div>
-      <div class="card">
-        <h3>🌍 Networking</h3>
-        <p>Connect with professionals and like-minded individuals worldwide.</p>
-      </div>
-      <div class="card">
-        <h3>📈 Growth</h3>
-        <p>Accelerate your personal and professional growth with exclusive tools.</p>
+      <div class="md:justify-self-end">
+        <div class="glass rounded-3xl p-6 border border-white/10 shadow-2xl">
+          <div class="text-white/80 text-sm">Live Snapshot</div>
+          <div class="mt-2 grid grid-cols-3 gap-3">
+            <div class="bg-white/10 rounded-2xl p-4 text-center">
+              <div class="text-2xl font-bold" id="liveMembers">0</div>
+              <div class="text-xs text-white/70">Members</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-4 text-center">
+              <div class="text-2xl font-bold" id="liveRaised">₦0</div>
+              <div class="text-xs text-white/70">Raised</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-4 text-center">
+              <div class="text-2xl font-bold" id="livePayouts">₦0</div>
+              <div class="text-xs text-white/70">Payouts</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="pricing" class="container">
-    <h2>Membership Plans</h2>
-    <div class="pricing">
-      <div class="price-card">
-        <h3>Free Plan</h3>
-        <p>✔ Access to community<br>✔ Limited resources<br>✔ Networking</p>
-        <a href="#" class="btn">Get Started</a>
+  <!-- HOW IT WORKS -->
+  <section id="how" class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <div class="text-lg font-semibold">1) Register & Pay</div>
+        <p class="text-white/80 mt-2">Create an account, choose a <strong>unique username</strong>, and pay the membership fee to activate.</p>
       </div>
-      <div class="price-card">
-        <h3>Premium Plan</h3>
-        <p>✔ All Free features<br>✔ Exclusive events<br>✔ Mentorship & Growth</p>
-        <a href="#" class="btn">Upgrade</a>
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <div class="text-lg font-semibold">2) Get Invite Code</div>
+        <p class="text-white/80 mt-2">Your username <em>becomes</em> your invite code. Share your link and grow your network.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <div class="text-lg font-semibold">3) Earn & Withdraw</div>
+        <p class="text-white/80 mt-2">Track contributions, referral rewards, and withdraw your balance when you want.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold">About Us</h2>
+    <p class="mt-4 text-white/80">ConnectPro is a modern platform designed to bring people together, share knowledge, and unlock new opportunities. We empower individuals and communities through collaboration and technology.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold">Our Features</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <h3 class="font-semibold">💡 Knowledge Sharing</h3>
+        <p class="text-white/80 mt-2">Access resources and learn from industry experts in real time.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <h3 class="font-semibold">🌍 Networking</h3>
+        <p class="text-white/80 mt-2">Connect with professionals and like-minded individuals worldwide.</p>
+      </div>
+      <div class="glass rounded-2xl p-5 border border-white/10">
+        <h3 class="font-semibold">📈 Growth</h3>
+        <p class="text-white/80 mt-2">Accelerate your personal and professional growth with exclusive tools.</p>
       </div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section id="testimonials" class="container testimonials">
-    <h2>What Our Members Say</h2>
-    <div class="testimonial">"Elevate Network changed the way I connect with professionals. Amazing platform!" – Sarah K.</div>
-    <div class="testimonial">"The growth opportunities here are unmatched. Highly recommended!" – James T.</div>
+  <section id="testimonials" class="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
+    <h2 class="text-2xl md:text-3xl font-bold">What Our Members Say</h2>
+    <div class="mt-6 space-y-4">
+      <div class="glass rounded-2xl p-4 border border-white/10 italic">"ConnectPro changed the way I connect with professionals. Amazing platform!" – Sarah K.</div>
+      <div class="glass rounded-2xl p-4 border border-white/10 italic">"The growth opportunities here are unmatched. Highly recommended!" – James T.</div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="register" class="max-w-6xl mx-auto px-4 md:px-6 pb-20">
+    <!-- Keep your existing registration form & Paystack integration here (unchanged from your Tailwind version) -->
+    <!-- ... -->
   </section>
 
   <!-- FOOTER -->
-  <footer id="contact">
-    <p>© 2025 Elevate Network | All Rights Reserved</p>
-    <p>
-      <a href="#">Privacy</a> | 
-      <a href="#">Terms</a> | 
-      <a href="mailto:contact@elevatenetwork.com">Contact</a>
-    </p>
+  <footer class="border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-10 text-white/60 text-sm flex flex-col md:flex-row gap-3 md:gap-6 justify-between">
+      <div>© <span id="year"></span> ConnectPro. All rights reserved.</div>
+      <div class="space-x-4">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="mailto:contact@connectpro.com" class="hover:text-white">Contact</a>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
